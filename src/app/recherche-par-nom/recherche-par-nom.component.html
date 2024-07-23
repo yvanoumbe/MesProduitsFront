@@ -1,0 +1,56 @@
+<div class="container">
+
+    <!--  formulaire de recherche par nom en utilisant l'api -->
+    <!--   <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2 mt-2 ">
+            <label>Nom Produit</label>
+            <input type="text" class="form-control" [(ngModel)]="nomProduit" name="nomProduit" class="form-control">
+            <button type="submit" (click)="rechercherProds()" class="btn btn-primary mb-2 ml-2">Rechercher</button>
+        </div>
+    </form> -->
+
+    <!-- nouveau formulaire de recherche par nom avec event keyup (il permet que au fur et a mesure que j'entre un
+      mot dans la recherche il m'afficher instantannément tous les mots commençant par cela )-->
+    <!--   <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2 mt-2 ">
+            <label>Nom Produit en tapant</label>
+            <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">
+        </div>
+    </form> -->
+
+    <!-- Rechercher par nom des produits en utilisant un pipe -->
+
+    <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2 mt-2 ">
+            <label>Nom Produit en tapant</label>
+            <input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control">
+        </div>
+    </form>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Date Création</th>
+                        <th>Catégorie</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let produit of produits  | searchFilter: searchTerm">
+                    <tr>
+                        <td>{{ produit.idProduit }}</td>
+                        <td>{{ produit.nomProduit }}</td>
+                        <td>{{ produit.prixProduit }}</td>
+                        <td>{{ produit.dateCreation | date : "dd/MM/yyyy" }}</td>
+                        <td>{{produit.categorie?.nomCat}}</td>
+                        <!--    <td><a class="btn btn-danger" (click)="supprimerProduit(produit)">Supprimer</a></td>
+                        <td><a class="btn btn-success" [routerLink]="['/updateProduit',produit.idProduit]">Modifier</a></td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
